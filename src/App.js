@@ -20,14 +20,25 @@ function App() {
     const [selectedCourse, setSelectedCourse] = useState(null);
 
     const toggleCompletion = (courseId) => {
-        setCompletedCourses((prev) =>
-            prev.includes(courseId)
-                ? prev.filter((id) => id !== courseId)
-                : [...prev, courseId]
-        );
+        setCompletedCourses((prev) => {
+            const course = courses.find(c => c.id === courseId);
+
+            // Si está tratando de aprobar una materia
+            if (!prev.includes(courseId)) {
+                // Solo permitimos aprobar si se cumplen los prerrequisitos
+                if (arePrereqsMet(course, prev)) {
+                    return [...prev, courseId];
+                }
+                // Si no se cumplen, no hacemos nada
+                return prev;
+            }
+
+            // Si está desaprobando, permitimos sin validación
+            return prev.filter((id) => id !== courseId);
+        });
     };
 
-    // 📌 Importante: Usa `onNodeClick` aquí (no en data.onClick)
+
     const onNodeClick = (event, node) => {
         const course = courses.find(c => c.id === node.id);
         if (course) {
@@ -46,7 +57,7 @@ function App() {
             position: { x, y },
             data: {
                 label: `${course.id} - ${course.name}`,
-                style: { // 👇 Movimos el cursor aquí para feedback visual
+                style: {
                     cursor: 'pointer'
                 }
             },
@@ -79,6 +90,45 @@ function App() {
             });
         });
     });
+    // WARNING: 
+    // Solución Problema 2 No resuelto
+    const calculateSemestersLeft = () => {
+        // Copiamos el estado actual de materias aprobadas
+        let completedTemp = [...completedCourses];
+        const uncompleted = courses.filter(c => !completedTemp.includes(c.id));
+
+        let semesters = 0;
+
+        // Simulamos semestres hasta completar todas las materias
+        while (uncompleted.length > 0) {
+            // Materias que se pueden tomar en este semestre (prerrequisitos completos)
+            const available = uncompleted.filter(course =>
+                arePrereqsMet(course, completedTemp)
+            );
+
+            if (available.length === 0) {
+                // No hay materias disponibles (bloqueadas permanentemente)
+                break;
+            }
+
+            // Simulamos que aprobamos estas materias en el semestre actual
+            available.forEach(course => {
+                completedTemp.push(course.id);
+            });
+
+            semesters++;
+
+            // Actualizamos la lista de materias pendientes
+            uncompleted.length = 0;
+            courses.forEach(course => {
+                if (!completedTemp.includes(course.id)) {
+                    uncompleted.push(course);
+                }
+            });
+        }
+
+        return semesters;
+    };
 
     const stats = {
         approved: completedCourses.length,
@@ -91,12 +141,8 @@ function App() {
         )
     };
 
-    const maxSemester = Math.max(...courses.map(c => c.semester));
-    const currentMaxSemester = Math.max(
-        0,
-        ...courses.filter(c => completedCourses.includes(c.id)).map(c => c.semester)
-    );
-    const semestersLeft = maxSemester - currentMaxSemester;
+
+    const semestersLeft = calculateSemestersLeft();
 
     return (
         <>
@@ -123,7 +169,7 @@ function App() {
                     </ReactFlow>
                 </div>
 
-                {/* 🔶 Panel lateral (funciona al hacer click) */}
+                {/* Panel lateral - Click */}
                 {selectedCourse && (
                     <div style={{
                         width: '300px',
@@ -210,8 +256,14 @@ function App() {
     );
 }
 
+// Función auxiliar mejorada
 function arePrereqsMet(course, completed) {
+    // Materias sin prerrequisitos siempre están disponibles
+    if (course.prereqs.length === 0) return true;
+
+    // Verificamos que todos los prerrequisitos estén completos
     return course.prereqs.every(req => completed.includes(req));
 }
+
 
 export default App;

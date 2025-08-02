@@ -1,10 +1,66 @@
 [
   {
+    "id": "03584",
+    "name": "TALLER DE LENGUA I",
+    "semester": 1,
+    "credits": 3,
+    "prereqs": []
+  },
+  {
+    "id": "00002",
+    "name": "TÉCNICAS DE APRENDIZAJE",
+    "semester": 1,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
+    "id": "00003",
+    "name": "VIDA UNIVERSITARIA",
+    "semester": 1,
+    "credits": 1,
+    "prereqs": []
+  },
+  {
+    "id": "04226",
+    "name": "INGLES I",
+    "semester": 1,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
+    "id": "04247",
+    "name": "MATEMÁTICAS",
+    "semester": 1,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
+    "id": "00001",
+    "name": "INTRODUCCIóN A LA INGENIERÍA DE SISTEMAS",
+    "semester": 1,
+    "credits": 3,
+    "prereqs": []
+  },
+  {
+    "id": "04609",
+    "name": "PROGRAMACIÓN DE COMPUTADORES",
+    "semester": 1,
+    "credits": 3,
+    "prereqs": []
+  },
+  {
     "id": "03585",
     "name": "TALLER DE LENGUA II",
     "semester": 2,
     "credits": 3,
     "prereqs": ["03584"]
+  },
+  {
+    "id": "00004",
+    "name": "OPTATIVA I",
+    "semester": 2,
+    "credits": 2,
+    "prereqs": []
   },
   {
     "id": "04227",
@@ -21,11 +77,32 @@
     "prereqs": ["04247"]
   },
   {
+    "id": "00006",
+    "name": "ÁLGEBRA LINEAL",
+    "semester": 2,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
+    "id": "00005",
+    "name": "LÓGICA",
+    "semester": 2,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
     "id": "04611",
     "name": "PROGRAMACIÓN DE COMPUTADORES AVANZADA",
     "semester": 2,
     "credits": 3,
     "prereqs": ["04609"]
+  },
+  {
+    "id": "00007",
+    "name": "OPTATIVA II",
+    "semester": 3,
+    "credits": 2,
+    "prereqs": []
   },
   {
     "id": "04228",
@@ -49,6 +126,13 @@
     "prereqs": ["04610"]
   },
   {
+    "id": "00008",
+    "name": "CONSTITUCIÓN POLITICA Y DEMOCRACIA",
+    "semester": 3,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
     "id": "04614",
     "name": "PROGRAMACIÓN Y TECNOLOGÍAS WEB I",
     "semester": 3,
@@ -63,32 +147,11 @@
     "prereqs": []
   },
   {
-    "id": "00104",
-    "name": "BASES DE DATOS",
-    "semester": 4,
-    "credits": 3,
-    "prereqs": ["04615"]
-  },
-  {
     "id": "04445",
     "name": "ECUACIONES DIFERENCIALES",
     "semester": 4,
     "credits": 3,
     "prereqs": ["04612"]
-  },
-  {
-    "id": "04616",
-    "name": "ELECTROMAGNETISMO",
-    "semester": 4,
-    "credits": 3,
-    "prereqs": ["04613"]
-  },
-  {
-    "id": "04617",
-    "name": "PROGRAMACIÓN Y TECNOLOGÍAS WEB II",
-    "semester": 4,
-    "credits": 2,
-    "prereqs": ["04614"]
   },
   {
     "id": "03853",
@@ -98,11 +161,32 @@
     "prereqs": []
   },
   {
-    "id": "00063",
-    "name": "ARQUITECTURA DE LOS COMPUTADORES",
-    "semester": 5,
+    "id": "04616",
+    "name": "ELECTROMAGNETISMO",
+    "semester": 4,
+    "credits": 3,
+    "prereqs": ["04613"]
+  },
+  {
+    "id": "00009",
+    "name": "ÉTICA PROFESIONAL",
+    "semester": 4,
     "credits": 2,
-    "prereqs": ["04616"]
+    "prereqs": []
+  },
+  {
+    "id": "04617",
+    "name": "PROGRAMACIÓN Y TECNOLOGÍAS WEB II",
+    "semester": 4,
+    "credits": 2,
+    "prereqs": ["04614"]
+  },
+  {
+    "id": "00104",
+    "name": "BASES DE DATOS",
+    "semester": 4,
+    "credits": 3,
+    "prereqs": ["04615"]
   },
   {
     "id": "03268",
@@ -110,6 +194,20 @@
     "semester": 5,
     "credits": 3,
     "prereqs": ["03853"]
+  },
+  {
+    "id": "00010",
+    "name": "INGENIERÍA ECONÓMICA",
+    "semester": 5,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
+    "id": "00063",
+    "name": "ARQUITECTURA DE LOS COMPUTADORES",
+    "semester": 5,
+    "credits": 2,
+    "prereqs": ["04616"]
   },
   {
     "id": "04619",
@@ -127,14 +225,28 @@
   },
   {
     "id": "04621",
-    "name": "ANáLISIS DE TéCNICAS NUMéTICAS",
+    "name": "ANÁLISIS DE TÉCNICAS NUMÉTICAS",
     "semester": 5,
     "credits": 2,
     "prereqs": []
   },
   {
+    "id": "00011",
+    "name": "PROYECTOS DE INGENIERÍA",
+    "semester": 6,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
+    "id": "04677",
+    "name": "INGENIERíA DEL SOFTWARE Y REQUERIMIENTOS",
+    "semester": 6,
+    "credits": 3,
+    "prereqs": []
+  },
+  {
     "id": "00506",
-    "name": "ELECTRONICA BASICA",
+    "name": "ELECTRONICA BÁSICA",
     "semester": 6,
     "credits": 2,
     "prereqs": ["00063"]
@@ -154,13 +266,6 @@
     "prereqs": ["04621"]
   },
   {
-    "id": "04624",
-    "name": "INGENIERíA DEL SOFTWARE Y REQUERIMIENTOS",
-    "semester": 6,
-    "credits": 3,
-    "prereqs": []
-  },
-  {
     "id": "04623",
     "name": "REDES DE COMPUTADORES I",
     "semester": 6,
@@ -168,11 +273,11 @@
     "prereqs": []
   },
   {
-    "id": "01412",
-    "name": "SISTEMAS DIGITALES",
+    "id": "03852",
+    "name": "ESPÍRITU EMPRENDEDOR",
     "semester": 7,
     "credits": 2,
-    "prereqs": ["00506"]
+    "prereqs": []
   },
   {
     "id": "03906",
@@ -189,6 +294,13 @@
     "prereqs": ["04677"]
   },
   {
+    "id": "01412",
+    "name": "SISTEMAS DIGITALES",
+    "semester": 7,
+    "credits": 2,
+    "prereqs": ["00506"]
+  },
+  {
     "id": "04626",
     "name": "INFRAESTRUCTURA TECNOLÓGICA DE TI",
     "semester": 7,
@@ -201,13 +313,6 @@
     "semester": 7,
     "credits": 2,
     "prereqs": ["04623"]
-  },
-  {
-    "id": "03852",
-    "name": "ESPíRITU EMPRENDEDOR",
-    "semester": 7,
-    "credits": 2,
-    "prereqs": []
   },
   {
     "id": "04628",
@@ -224,18 +329,11 @@
     "prereqs": ["03852"]
   },
   {
-    "id": "01403",
-    "name": "SIMULACIÓN DE SISTEMAS",
+    "id": "03875",
+    "name": "FUNDAMENTOS Y CONTEXTO PARA LA INVESTIGACIóN",
     "semester": 8,
     "credits": 3,
-    "prereqs": ["04624"]
-  },
-  {
-    "id": "01414",
-    "name": "SISTEMAS DISTRIBUIDOS",
-    "semester": 8,
-    "credits": 3,
-    "prereqs": ["04626"]
+    "prereqs": []
   },
   {
     "id": "04629",
@@ -252,6 +350,13 @@
     "prereqs": ["01412"]
   },
   {
+    "id": "01414",
+    "name": "SISTEMAS DISTRIBUIDOS",
+    "semester": 8,
+    "credits": 3,
+    "prereqs": ["04626"]
+  },
+  {
     "id": "04631",
     "name": "SEGURIDAD INFORMÁTICA",
     "semester": 8,
@@ -259,11 +364,11 @@
     "prereqs": ["04627"]
   },
   {
-    "id": "03875",
-    "name": "FUNDAMENTOS Y CONTEXTO PARA LA INVESTIGACIóN",
+    "id": "01403",
+    "name": "SIMULACIÓN DE SISTEMAS",
     "semester": 8,
     "credits": 3,
-    "prereqs": []
+    "prereqs": ["04624"]
   },
   {
     "id": "03849",
@@ -271,6 +376,20 @@
     "semester": 9,
     "credits": 3,
     "prereqs": ["03875"]
+  },
+  {
+    "id": "00012",
+    "name": "OPTATIVA III",
+    "semester": 9,
+    "credits": 2,
+    "prereqs": []
+  },
+  {
+    "id": "00013",
+    "name": "ELECTIVA PROFESIONAL EN INGENIERÍA DEL SOFTWARE",
+    "semester": 9,
+    "credits": 2,
+    "prereqs": []
   },
   {
     "id": "04633",
@@ -285,6 +404,13 @@
     "semester": 9,
     "credits": 2,
     "prereqs": ["01414"]
+  },
+  {
+    "id": "00014",
+    "name": "ELECTIVA PROFESIONAL EN CIENCIAS DE LA COMPUTACIÓN",
+    "semester": 9,
+    "credits": 2,
+    "prereqs": []
   },
   {
     "id": "04384",
@@ -313,5 +439,12 @@
     "semester": 10,
     "credits": 2,
     "prereqs": ["04633"]
+  },
+  {
+    "id": "00015",
+    "name": "PRACTICAS PROFESIONALES",
+    "semester": 10,
+    "credits": 5,
+    "prereqs": []
   }
 ]
