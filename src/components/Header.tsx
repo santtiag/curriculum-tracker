@@ -1,0 +1,18 @@
+import { GraduationCap } from "lucide-react"
+
+type HeaderProps = {
+  title: string;
+};
+
+export function Header({ title }: HeaderProps) {
+  return (
+    <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+      <div className="bg-white/80 backdrop-blur-xl border border-white/30 rounded-xl px-6 py-3 shadow-xl">
+        <h1 className="text-xl font-semibold text-gray-800 flex items-center gap-2">
+          <GraduationCap className="w-6 h-6 text-blue-500" />
+          {title}
+        </h1>
+      </div>
+    </div>
+  )
+}

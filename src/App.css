@@ -1,38 +1,94 @@
-.App {
-  text-align: center;
+@import "tailwindcss";
+
+/* Custom ReactFlow styles */
+.react-flow__node {
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.react-flow__handle {
+  border: 2px solid #d1d5db !important;
+  background: white !important;
+  width: 8px !important;
+  height: 8px !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.react-flow__handle:hover {
+  background: #f3f4f6 !important;
+  border-color: #9ca3af !important;
+}
+
+.react-flow__controls {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+}
+
+.react-flow__controls button {
+  background: transparent !important;
+  border: none !important;
+  color: #374151 !important;
+}
+
+.react-flow__controls button:hover {
+  background: rgba(243, 244, 246, 0.5) !important;
+}
+
+.react-flow__minimap {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+}
+
+.react-flow__attribution {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 6px !important;
+  color: #6b7280 !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@keyframes fadeInScaleAfterEffects {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fade-in-scale {
+  animation: fadeInScaleAfterEffects 0.2s ease-out forwards;
 }
