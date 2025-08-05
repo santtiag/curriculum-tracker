@@ -61,7 +61,7 @@ export function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
                 <a href="https://github.com/santtiag" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-blue-100/50 transition-colors">
                   <Github className="w-4 h-4 text-gray-600" />
                 </a>
-                <a href="https://www.linkedin.com/in/santtiago-romero-92887418a" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-blue-100/50 transition-colors">
+                <a href="https://www.linkedin.com/in/santiago-romero-92887418a/" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-blue-100/50 transition-colors">
                   <Linkedin className="w-4 h-4 text-gray-600" />
                 </a>
               </div>
