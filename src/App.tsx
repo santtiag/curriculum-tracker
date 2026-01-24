@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useMemo } from "react"
+import { useState, useCallback, useMemo, useEffect } from "react"
 import ReactFlow, { Controls, Background, type Node, type Edge } from "reactflow"
 import "reactflow/dist/style.css"
 
@@ -38,31 +38,76 @@ export default function App() {
   const [completedCourses, setCompletedCourses] = useState<string[]>([])
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
   const [isCreditsModalOpen, setIsCreditsModalOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [lastClickedCourse, setLastClickedCourse] = useState<Course | null>(null)
+  const [lastClickTime, setLastClickTime] = useState<number>(0)
 
-  const toggleCompletion = useCallback((courseId: string) => {
-    setCompletedCourses((prev) => {
-      const course = courses.find((c) => c.id === courseId)
-      if (!course) return prev
+  // Detectar tamaño de pantalla
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+    }
 
-      if (!prev.includes(courseId)) {
-        if (arePrereqsMet(course, prev)) {
-          return [...prev, courseId]
-        }
-        return prev
-      }
-      return prev.filter((id) => id !== courseId)
-    })
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
   }, [])
 
+  const toggleCompletion = useCallback(
+    (courseId: string) => {
+      setCompletedCourses((prev) => {
+        const course = courses.find((c) => c.id === courseId)
+        if (!course) return prev
+
+        // Validar prerequisitos al marcar como completada
+        if (!prev.includes(courseId)) {
+          if (arePrereqsMet(course, prev)) {
+            // Marcar como completada
+            return [...prev, courseId]
+          }
+          // Si no cumple prerequisitos, no hacer nada (o mostrar mensaje)
+          return prev
+        }
+        // Desmarcar (si ya está completada)
+        return prev.filter((id) => id !== courseId)
+      })
+    },
+    [],
+  )
+
+  // Click en nodo: completa directamente y selecciona para ver detalles
   const onNodeClick = useCallback(
     (_: unknown, node: Node) => {
       const course = courses.find((c) => c.id === node.id)
-      if (course) {
-        toggleCompletion(course.id)
-        setSelectedCourse(course)
+      if (!course) return
+
+      const now = Date.now()
+      const isSameCourse = lastClickedCourse?.id === course.id
+      const isDoubleClick = isSameCourse && (now - lastClickTime) < 500 // 500ms para double click
+
+      // Completar o descompletar directamente (siempre en el primer click)
+      const isCompleted = completedCourses.includes(course.id)
+
+      if (!isCompleted && arePrereqsMet(course, completedCourses)) {
+        setCompletedCourses((prev) => [...prev, course.id])
+      } else if (isCompleted) {
+        setCompletedCourses((prev) => prev.filter((id) => id !== course.id))
       }
+
+      // Solo abrir sidebar si es doble click en la misma materia
+      if (isDoubleClick) {
+        setSelectedCourse(course)
+        if (isMobile) {
+          setIsSidebarOpen(true)
+        }
+      }
+
+      setLastClickedCourse(course)
+      setLastClickTime(now)
     },
-    [toggleCompletion],
+    [completedCourses, isMobile, lastClickedCourse, lastClickTime],
   )
 
   const { nodes, edges } = useMemo(() => {
@@ -196,6 +241,9 @@ export default function App() {
           onToggleCompletion={toggleCompletion}
           onSelectCourse={setSelectedCourse}
           arePrereqsMet={arePrereqsMet}
+          isMobile={isMobile}
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
         />
       </div>
 

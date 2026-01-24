@@ -30,6 +30,8 @@
   background: transparent !important;
   border: none !important;
   color: #374151 !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
 }
 
 .react-flow__controls button:hover {
@@ -51,6 +53,32 @@
   color: #6b7280 !important;
 }
 
+/* Mobile specific adjustments */
+@media (max-width: 768px) {
+  .react-flow__controls {
+    bottom: 80px !important;
+    top: auto !important;
+    left: 16px !important;
+    right: auto !important;
+    transform: scale(1.2);
+  }
+
+  .react-flow__controls button {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    padding: 0 !important;
+  }
+
+  .react-flow__attribution {
+    font-size: 10px !important;
+    bottom: 80px !important;
+    right: 16px !important;
+    top: auto !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -68,6 +96,18 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
+}
+
+/* Mobile scrollbar */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 2px;
+  }
 }
 
 /* Line clamp utility */
