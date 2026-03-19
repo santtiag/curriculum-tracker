@@ -1,6 +1,6 @@
 "use client"
 
-import { X, Github, Linkedin, GraduationCap } from "lucide-react"
+import { X, Github, Linkedin, GraduationCap, Heart } from "lucide-react"
 import { cn } from "../lib/utils"
 
 interface CreditsModalProps {
@@ -12,11 +12,11 @@ export function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
         className={cn(
-          "absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300",
+          "absolute inset-0 bg-black/50 backdrop-blur-md transition-opacity duration-300",
           isOpen ? "opacity-100" : "opacity-0",
         )}
         onClick={onClose}
@@ -25,64 +25,71 @@ export function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
       {/* Modal */}
       <div
         className={cn(
-          "relative bg-white/90 backdrop-blur-xl border border-white/30 rounded-2xl shadow-2xl",
-          "w-96 p-8 transform transition-all duration-500 ease-out",
-          isOpen ? "scale-100 opacity-100 translate-y-0 fade-in-scale" : "scale-95 opacity-0 translate-y-4",
+          "relative glass-dark rounded-2xl shadow-2xl shadow-black/50",
+          "w-full max-w-sm p-7 transform transition-all duration-400 ease-out animate-fadeInScale",
+          "border-cyan-500/10",
         )}
       >
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-gray-100/50 transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-slate-800/60 transition-colors cursor-pointer group"
         >
-          <X className="w-4 h-4 text-gray-500" />
+          <X className="w-4 h-4 text-slate-500 group-hover:text-slate-300 transition-colors" />
         </button>
 
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-500/20 rounded-full mx-auto mb-4 flex items-center justify-center backdrop-blur-sm border border-white/30">
-            <span className="text-2xl"><GraduationCap /></span>
+        <div className="text-center mb-7">
+          <div className="relative w-16 h-16 mx-auto mb-4">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-violet-500/20 rounded-full blur-lg animate-glow-pulse" />
+            <div className="relative w-16 h-16 bg-gradient-to-br from-cyan-500/15 to-violet-500/15 rounded-full flex items-center justify-center border border-cyan-500/20">
+              <GraduationCap className="w-7 h-7 text-cyan-400" />
+            </div>
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Desarrollado por</h2>
+          <h2 className="text-xl font-bold gradient-text mb-1">Desarrollado con</h2>
+          <div className="flex items-center justify-center gap-1">
+            <Heart className="w-4 h-4 text-rose-400 fill-rose-400" />
+            <span className="text-slate-400 text-sm">por</span>
+          </div>
         </div>
 
         {/* Credits */}
-        <div className="space-y-4">
-          <div className="group p-4 rounded-xl bg-gradient-to-r from-blue-50/50 to-indigo-50/50 border border-blue-100/50 hover:border-blue-200/50 transition-all duration-300 hover:shadow-lg">
+        <div className="space-y-3">
+          <div className="group p-4 rounded-xl bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/10 hover:border-cyan-500/25 transition-all duration-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.08)]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-blue-100/60 rounded-full flex items-center justify-center">
-                <img src="https://avatars.githubusercontent.com/u/96261455?v=4" className="text-blue-600 font-semibold text-sm rounded-full size-10"/>
+              <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-cyan-500/20 group-hover:ring-cyan-500/40 transition-all">
+                <img src="https://avatars.githubusercontent.com/u/96261455?v=4" className="w-10 h-10 rounded-full object-cover"/>
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-800">Santiago Romero</h3>
-                <p className="text-gray-600 text-xs">Backend & AI Developer</p>
+                <h3 className="font-semibold text-slate-200 text-sm">Santiago Romero</h3>
+                <p className="text-slate-500 text-xs">Backend & AI Developer</p>
               </div>
-              <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <a href="https://github.com/santtiag" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-blue-100/50 transition-colors">
-                  <Github className="w-4 h-4 text-gray-600" />
+              <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <a href="https://github.com/santtiag" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-cyan-500/10 transition-colors">
+                  <Github className="w-4 h-4 text-slate-400 hover:text-cyan-400 transition-colors" />
                 </a>
-                <a href="https://www.linkedin.com/in/santiago-romero-92887418a/" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-blue-100/50 transition-colors">
-                  <Linkedin className="w-4 h-4 text-gray-600" />
+                <a href="https://www.linkedin.com/in/santiago-romero-92887418a/" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-cyan-500/10 transition-colors">
+                  <Linkedin className="w-4 h-4 text-slate-400 hover:text-cyan-400 transition-colors" />
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="group p-4 rounded-xl bg-gradient-to-r from-purple-50/50 to-pink-50/50 border border-purple-100/50 hover:border-purple-200/50 transition-all duration-300 hover:shadow-lg">
+          <div className="group p-4 rounded-xl bg-gradient-to-r from-violet-500/5 to-purple-500/5 border border-violet-500/10 hover:border-violet-500/25 transition-all duration-300 hover:shadow-[0_0_20px_rgba(167,139,250,0.08)]">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-purple-100/60 rounded-full flex items-center justify-center">
-                <img src="https://avatars.githubusercontent.com/u/128250217?v=4" className="text-blue-600 font-semibold text-sm rounded-full size-10"/>
+              <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-violet-500/20 group-hover:ring-violet-500/40 transition-all">
+                <img src="https://avatars.githubusercontent.com/u/128250217?v=4" className="w-10 h-10 rounded-full object-cover"/>
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-gray-800">Steven Tete</h3>
-                <p className="text-gray-600 text-xs">UX/UI Designer</p>
+                <h3 className="font-semibold text-slate-200 text-sm">Steven Tete</h3>
+                <p className="text-slate-500 text-xs">UX/UI Designer</p>
               </div>
-              <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <a href="https://github.com/steventete" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-purple-100/50 transition-colors">
-                  <Github className="w-4 h-4 text-gray-600" />
+              <div className="flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <a href="https://github.com/steventete" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-violet-500/10 transition-colors">
+                  <Github className="w-4 h-4 text-slate-400 hover:text-violet-400 transition-colors" />
                 </a>
-                <a href="https://www.linkedin.com/in/steventete/" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-purple-100/50 transition-colors">
-                  <Linkedin className="w-4 h-4 text-gray-600" />
+                <a href="https://www.linkedin.com/in/steventete/" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-lg hover:bg-violet-500/10 transition-colors">
+                  <Linkedin className="w-4 h-4 text-slate-400 hover:text-violet-400 transition-colors" />
                 </a>
               </div>
             </div>
@@ -90,8 +97,8 @@ export function CreditsModal({ isOpen, onClose }: CreditsModalProps) {
         </div>
 
         {/* Footer */}
-        <div className="mt-8 pt-6 border-t border-gray-200/50 text-center">
-          <p className="text-gray-500 text-xs">Curriculum Tracker v1.0 • {new Date().getFullYear()}</p>
+        <div className="mt-7 pt-5 border-t border-slate-800/60 text-center">
+          <p className="text-slate-600 text-xs">Curriculum Tracker v2.0 • {new Date().getFullYear()}</p>
         </div>
       </div>
     </div>

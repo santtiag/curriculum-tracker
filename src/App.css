@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
-/* Custom ReactFlow styles */
+/* ============================
+   ReactFlow Dark Theme Overrides
+   ============================ */
+
 .react-flow__node {
   border: none !important;
   background: transparent !important;
@@ -8,127 +11,140 @@
 }
 
 .react-flow__handle {
-  border: 2px solid #d1d5db !important;
-  background: white !important;
+  border: 2px solid rgba(34, 211, 238, 0.4) !important;
+  background: rgba(15, 23, 42, 0.9) !important;
   width: 8px !important;
   height: 8px !important;
+  transition: all 0.2s ease !important;
 }
 
 .react-flow__handle:hover {
-  background: #f3f4f6 !important;
-  border-color: #9ca3af !important;
+  background: rgba(34, 211, 238, 0.3) !important;
+  border-color: var(--accent-cyan) !important;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.4) !important;
 }
 
 .react-flow__controls {
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(8px) !important;
-  border: 1px solid #e5e7eb !important;
-  border-radius: 8px !important;
+  background: rgba(15, 23, 42, 0.9) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(148, 163, 184, 0.12) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  overflow: hidden !important;
 }
 
 .react-flow__controls button {
   background: transparent !important;
   border: none !important;
-  color: #374151 !important;
-  min-width: 32px !important;
-  min-height: 32px !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08) !important;
+  color: #94a3b8 !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  transition: all 0.2s ease !important;
 }
 
 .react-flow__controls button:hover {
-  background: rgba(243, 244, 246, 0.5) !important;
+  background: rgba(34, 211, 238, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+
+.react-flow__controls button:last-child {
+  border-bottom: none !important;
+}
+
+.react-flow__controls button svg {
+  fill: currentColor !important;
 }
 
 .react-flow__minimap {
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(8px) !important;
-  border: 1px solid #e5e7eb !important;
-  border-radius: 8px !important;
+  background: rgba(15, 23, 42, 0.9) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(148, 163, 184, 0.1) !important;
+  border-radius: 12px !important;
 }
 
 .react-flow__attribution {
-  background: rgba(255, 255, 255, 0.9) !important;
+  background: rgba(15, 23, 42, 0.7) !important;
   backdrop-filter: blur(8px) !important;
-  border: 1px solid #e5e7eb !important;
-  border-radius: 6px !important;
-  color: #6b7280 !important;
+  border: 1px solid rgba(148, 163, 184, 0.08) !important;
+  border-radius: 8px !important;
+  color: #64748b !important;
 }
 
-/* Mobile specific adjustments */
+.react-flow__attribution a {
+  color: #64748b !important;
+}
+
+/* Edge animation */
+.react-flow__edge-path {
+  stroke-linecap: round !important;
+}
+
+/* Background dots */
+.react-flow__background pattern circle {
+  fill: rgba(148, 163, 184, 0.06) !important;
+}
+
+/* ============================
+   Mobile adjustments
+   ============================ */
+
 @media (max-width: 768px) {
   .react-flow__controls {
-    bottom: 80px !important;
+    bottom: 90px !important;
     top: auto !important;
     left: 16px !important;
     right: auto !important;
-    transform: scale(1.2);
+    transform: scale(1.15);
   }
 
   .react-flow__controls button {
-    width: 40px !important;
-    height: 40px !important;
-    min-width: 40px !important;
-    min-height: 40px !important;
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
     padding: 0 !important;
   }
 
   .react-flow__attribution {
     font-size: 10px !important;
-    bottom: 80px !important;
+    bottom: 90px !important;
     right: 16px !important;
     top: auto !important;
   }
 }
 
-/* Custom scrollbar */
+/* ============================
+   Custom Dark Scrollbar
+   ============================ */
+
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f3f4f6;
+  background: rgba(15, 23, 42, 0.5);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: rgba(148, 163, 184, 0.2);
   border-radius: 3px;
+  transition: background 0.2s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #9ca3af;
+  background: rgba(148, 163, 184, 0.35);
 }
 
-/* Mobile scrollbar */
 @media (max-width: 768px) {
   ::-webkit-scrollbar {
     width: 4px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #d1d5db;
+    background: rgba(148, 163, 184, 0.15);
     border-radius: 2px;
   }
-}
-
-/* Line clamp utility */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-@keyframes fadeInScaleAfterEffects {
-  0% {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.fade-in-scale {
-  animation: fadeInScaleAfterEffects 0.2s ease-out forwards;
 }

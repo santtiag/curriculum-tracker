@@ -43,7 +43,7 @@ export default function App() {
   const [lastClickedCourse, setLastClickedCourse] = useState<Course | null>(null)
   const [lastClickTime, setLastClickTime] = useState<number>(0)
 
-  // Detectar tamaño de pantalla
+  // Detect screen size
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768
@@ -61,23 +61,18 @@ export default function App() {
         const course = courses.find((c) => c.id === courseId)
         if (!course) return prev
 
-        // Validar prerequisitos al marcar como completada
         if (!prev.includes(courseId)) {
           if (arePrereqsMet(course, prev)) {
-            // Marcar como completada
             return [...prev, courseId]
           }
-          // Si no cumple prerequisitos, no hacer nada (o mostrar mensaje)
           return prev
         }
-        // Desmarcar (si ya está completada)
         return prev.filter((id) => id !== courseId)
       })
     },
     [],
   )
 
-  // Click en nodo: completa directamente y selecciona para ver detalles
   const onNodeClick = useCallback(
     (_: unknown, node: Node) => {
       const course = courses.find((c) => c.id === node.id)
@@ -85,9 +80,8 @@ export default function App() {
 
       const now = Date.now()
       const isSameCourse = lastClickedCourse?.id === course.id
-      const isDoubleClick = isSameCourse && (now - lastClickTime) < 500 // 500ms para double click
+      const isDoubleClick = isSameCourse && (now - lastClickTime) < 500
 
-      // Completar o descompletar directamente (siempre en el primer click)
       const isCompleted = completedCourses.includes(course.id)
 
       if (!isCompleted && arePrereqsMet(course, completedCourses)) {
@@ -96,7 +90,6 @@ export default function App() {
         setCompletedCourses((prev) => prev.filter((id) => id !== course.id))
       }
 
-      // Solo abrir sidebar si es doble click en la misma materia
       if (isDoubleClick) {
         setSelectedCourse(course)
         if (isMobile) {
@@ -111,7 +104,6 @@ export default function App() {
   )
 
   const { nodes, edges } = useMemo(() => {
-    // Group courses by semester for better positioning
     const coursesBySemester = courses.reduce(
       (acc, course) => {
         if (!acc[course.semester]) {
@@ -155,14 +147,22 @@ export default function App() {
     const edges: Edge[] = []
     courses.forEach((course) => {
       course.prereqs.forEach((prereq) => {
+        const isPrereqCompleted = completedCourses.includes(prereq)
+        const isCourseCompleted = completedCourses.includes(course.id)
+        const bothCompleted = isPrereqCompleted && isCourseCompleted
+
         edges.push({
           id: `e${prereq}-${course.id}`,
           source: prereq,
           target: course.id,
-          animated: true,
+          animated: !bothCompleted,
           style: {
-            stroke: "#006687",
-            strokeWidth: 1.5,
+            stroke: bothCompleted
+              ? "rgba(52, 211, 153, 0.3)"
+              : isPrereqCompleted
+                ? "rgba(34, 211, 238, 0.5)"
+                : "rgba(148, 163, 184, 0.15)",
+            strokeWidth: bothCompleted ? 1 : 1.5,
           },
           type: "smoothstep",
         })
@@ -178,7 +178,6 @@ export default function App() {
     const canTake = courses.filter((c) => !completedCourses.includes(c.id) && arePrereqsMet(c, completedCourses))
     const blocked = courses.filter((c) => !completedCourses.includes(c.id) && !arePrereqsMet(c, completedCourses))
 
-    // Calculate semesters left
     const completedTemp = [...completedCourses]
     const uncompleted = courses.filter((c) => !completedTemp.includes(c.id))
     let semesters = 0
@@ -203,23 +202,24 @@ export default function App() {
     return { approved, pending, canTake, blocked, semestersLeft: semesters }
   }, [completedCourses])
 
+  const progressPercent = Math.round((completedCourses.length / courses.length) * 100)
+
   return (
-    <div className="h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(https://transparenttextures.com/patterns/white-diamond.png)`,
-            backgroundSize: "20px 20px",
-          }}
-        />
+    <div className="h-screen bg-[#0a0e1a] relative overflow-hidden">
+      {/* Ambient background effects */}
+      <div className="absolute inset-0">
+        {/* Dot pattern */}
+        <div className="absolute inset-0 dot-pattern" />
+        {/* Top-left glow */}
+        <div className="absolute -top-32 -left-32 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+        {/* Bottom-right glow */}
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
       </div>
 
       <div className="flex h-full relative z-10">
         {/* Main Flow Area */}
         <div className="flex-1 relative">
-          <Header title="Curriculum Tracker" />
+          <Header title="Curriculum Tracker" progress={progressPercent} />
           <CreditsButton onClick={() => setIsCreditsModalOpen(true)} />
 
           <ReactFlow
@@ -227,10 +227,9 @@ export default function App() {
             edges={edges}
             nodeTypes={nodeTypes}
             onNodeClick={onNodeClick}
-            className="bg-[url('https://transparenttextures.com/patterns/translucent-fibres.png')]"
           >
-            <Controls className="bg-white/80 backdrop-blur-xl border border-white/30 rounded-lg shadow-xl" />
-            <Background gap={20} size={1} color="#f0f0f0" />
+            <Controls />
+            <Background gap={24} size={1} color="rgba(148, 163, 184, 0.04)" />
           </ReactFlow>
         </div>
 
@@ -238,6 +237,7 @@ export default function App() {
           selectedCourse={selectedCourse}
           completedCourses={completedCourses}
           stats={stats}
+          totalCourses={courses.length}
           onToggleCompletion={toggleCompletion}
           onSelectCourse={setSelectedCourse}
           arePrereqsMet={arePrereqsMet}
